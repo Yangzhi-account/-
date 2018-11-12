@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+        }
+        
+        .total {
+            width: 300px;
+            border: 1px solid red;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        
+        .txt {
+            width: 100%;
+            height: 60px;
+            border: 1px solid rgb(220, 220, 220);
+            font-size: 40px;
+            text-align: right;
+            overflow-x: scroll;
+        }
+        
+        .clc {
+            display: inline-block;
+            width: 73px;
+            height: 40px;
+            border: 1px solid rgb(220, 220, 220);
+            font-size: 20px;
+            text-align: center;
+            padding-top: 10px;
+        }
+        
+        .org {
+            background: red;
+        }
+        
+        .ze {
+            width: 148px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="total">
+        <div class="txt" id="txt"> 0</div>
+        <div class="txt-1">
+            <span class="clc" id="AC">AC</span>
+            <span class="clc">+/-</span>
+            <span class="clc">%</span>
+            <span class="clc org">/</span>
+        </div>
+        <div class="txt-1">
+            <span class="clc">7</span>
+            <span class="clc">8</span>
+            <span class="clc">9</span>
+            <span class="clc org">*</span>
+        </div>
+        <div class="txt-1">
+            <span class="clc">4</span>
+            <span class="clc">5</span>
+            <span class="clc">6</span>
+            <span class="clc org">+</span>
+        </div>
+        <div class="txt-1">
+            <span class="clc">1</span>
+            <span class="clc">2</span>
+            <span class="clc">3</span>
+            <span class="clc org">-</span>
+        </div>
+        <div class="txt-1">
+            <span class="clc ze">0</span>
+            <span class="clc">.</span>
+            <span class="clc org equal">=</span>
+        </div>
+    </div>
+</body>
+<script>
+    var num_1 = '',
+        num_2 = '';
+    var opertor = false;
+    var result = '';
+    var txt_ = document.getElementById('txt');
+    var AC_ = document.getElementById('AC');
+    var allclc = document.getElementsByClassName('clc');
+    for (var i = 0; i < allclc.length; i++) {
+        allclc[i].onclick = function() {
+            //给所有的按键分类
+            var content = this.innerHTML;
+            if (!isNaN(Number(content))) { //判断是否能强制转换成数值   
+                funNum(content);
+                AC_.innerText = 'C';
+            } else {
+                if (content == '.') {
+                    txt_.innerText += content;
+                } else if (content == '+' || content == '-' || content == '*' || content == '/' || content == '%') {
+                    //运算符按键找到
+                    funOperator(content);
+                } else if (content == '=') {
+                    get(content);
+                } else if (content = 'AC') {
+                    txt_.innerHTML = '';
+                    num_1 = '';
+                    num_2 = '';
+                    AC_.innerText = 'AC';
+                }
+            }
+
+            function funNum(a) { //处理数字按键的函数
+                if (opertor == false) {
+                    num_1 += a;
+                    txt_.innerText = num_1;
+                } else {
+                    num_2 += a;
+                    txt_.innerText = num_2;
+                }
+            }
+
+
+            function funOperator(a) {
+                opertor = a;
+                txt_.innerText = opertor;
+            }
+
+            function get(a) {
+                switch (opertor) {
+                    case "+":
+                        result = Number(num_1) + Number(num_2);
+                        break;
+                    case "-":
+                        result = Number(num_1) - Number(num_2);
+                        break;
+                    case "*":
+                        result = Number(num_1) * Number(num_2);
+                        break;
+                    case "/":
+                        result = Number(num_1) / Number(num_2);
+                        break;
+                    case "%":
+                        result = Number(num_1) % Number(num_2);
+                        break;
+                }
+                txt_.innerText = result;
+            }
+        }
+    }
+</script>
+
+</html>

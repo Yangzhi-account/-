@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="text1">
+    <select name="" id="calc">
+       <option value="加" id="m2">加</option>
+        <option value="乘" id="m1">乘</option>
+        <option value="减" id="m3">减</option>
+        <option value="除" id="m4">除</option>
+    </select>
+    <input type="text" id="text2">=
+    <input type="text" id="text3">
+    <input type="button" id="btn" value="计算">
+    <script>
+        var obtn = document.getElementById('btn');
+        obtn.onclick = function() {
+            var otext1 = document.getElementById("text1");
+            var otext2 = document.getElementById("text2");
+            var otext3 = document.getElementById("text3");
+            // var m1 = document.getElementById('m1');
+            // var m2 = document.getElementById('m2');
+            // var m3 = document.getElementById('m3');
+            // var m4 = document.getElementById('m4');
+            var ocalc = document.getElementById("calc");
+            if (calc.value == "加") {
+                otext3.value = parseFloat(otext1.value) + parseFloat(otext2.value);
+            }
+            if (calc.value == "减") {
+                otext3.value = parseFloat(otext1.value) - parseFloat(otext2.value);
+            }
+            if (calc.value == "乘") {
+                otext3.value = parseFloat(otext1.value) * parseFloat(otext2.value);
+            }
+            if (calc.value == 除) {
+                otext3.value = parseFloat(otext1.value) / parseFloat(otext2.value);
+            }
+        }
+    </script>
+</body>
+
+</html>
