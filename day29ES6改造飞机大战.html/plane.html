@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<input type="button" id="btnPause" value="游戏暂停" />
+	</body>
+</html>
+<script ></script>
+<!-- 
+面向对象做飞机大战。
+一、项目中有哪些类 
+-->
+<script type="text/javascript" src="js/score.js" ></script>
+<script type="text/javascript" src="js/map.js" ></script>
+<script type="text/javascript" src="js/MoverObj.js" ></script>
+<script type="text/javascript" src="js/myPlane.js" ></script>
+<script type="text/javascript" src="js/enemyPlane.js" ></script>
+<script type="text/javascript" src="js/bullet.js" ></script>
+<script type="text/javascript">
+
+//控制游戏的暂停与开始
+var isPause = false;
+
+window.onload = function(){
+	document.getElementById("btnPause").onclick = function(){
+		this.value = this.value=="游戏暂停"?"游戏继续":"游戏暂停";
+		isPause = !isPause;
+	}
+	//二、步骤
+	//1、地图
+	
+	let m = singlton.getInstance({
+		width:480,
+		height:600,
+		bgImg:"img/bg.jpg"
+	});
+
+	//2、我方战机
+	let myPlane1 = new MyPlane({
+		map:m,//我方战机所属的地图对象
+		name:"张尧",
+		width : 98,
+		height : 122,
+		left : (m.width-98)/2,
+		top : m.height-122,
+		bgImg : "img/me.png",
+		incLeft:10,
+		incTop:10,
+		leftKey:37,
+		topKey:38,
+		rightKey:39,
+		downKey:40
+	});
+	myPlane1.addEvent();
+	myPlane1.shoot();
+	m.myPlanes.push(myPlane1);//把创建的飞机放到飞机数组
+	
+	let myPlane2 = new MyPlane({
+		map:m,//我方战机所属的地图对象
+		name:"路鹏",
+		width : 96,
+		height : 57,
+		left : (m.width-96)/2,
+		top : m.height-57,
+		bgImg : "img/myplane.png",
+		incLeft:10,
+		incTop:10,
+		leftKey:65,//a键
+		topKey:87,//w键
+		rightKey:68,//d键
+		downKey:83//s键
+	});
+	myPlane2.addEvent();
+	myPlane2.shoot();
+	m.myPlanes.push(myPlane2);//把创建的飞机放到飞机数组
+	
+	//3、创建敌机
+	createEnemyPlane(m);
+	
+	
+	//4、创建积分板
+	let score = new Score({
+		map:m,
+		width : 200,
+		height: 50,
+		bgColor:"pink",
+		fontSize : "18px",
+		color : "green"
+	});	
+}
+
+function createEnemyPlane(m){
+	let ord=0;
+	setInterval(function(){
+		if(isPause){
+			return;
+		}
+		ord++;
+		let e = new EnemyPlane({
+			map:m,//所属地图
+			width : 59,
+			height : 36,
+			left : parseInt(Math.random()*(m.width-59)),
+			top : -36,
+			bgImg : "img/plain1.png",
+			directionTop : 1,
+			incTop : 36,
+			timeSpace : 1000,
+			ord:ord,
+			boomImgs:["img/plain1_die1.png","img/plain1_die2.png","img/plain1_die3.png"],
+			level:10
+		});
+		m.enemyPlanes.push(e);
+		e.go();
+	},1000);
+}
+
+</script>
