@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .content1 {
+            width: 100%;
+        }
+        
+        #typing_info {
+            position: absolute;
+            top: 400px;
+            right: 100px;
+            display: block;
+            margin-right: 0px;
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="index1.css">
+
+<body>
+
+    <div class="content1">
+        <div id="content" class="typing_content font1" style="height: 596px;">
+            <h5 class="start_ts"><span class="jishi_ts">开始输入时计时！</span><span class="group_typing_info">文章名称：<strong>a girl selling matches</strong>，类别：<strong>英文</strong>，设定时间：<strong>5分钟</strong>。</span></h5>
+
+            <div class="typing typing_on">dfd f</div>
+            <input type="text">
+            <div class="typing typing_on"></div>
+            <input type="text">
+            <div class="typing typing_on"></div>
+            <input type="text">
+            <div class="nav" id="typing_info">
+                <div id="typing_info_li">
+                    <ul>
+                        <li class="daojishi">
+                            <div></div>倒计时</li>
+                        <li class="daojishi_time">05:00</li>
+                        <li class="sheding">设定时间：5分钟</li>
+                        <li class="sudu">速　度：- WPM</li>
+                        <li class="zhengquelv">正确率：- %</li>
+                        <li class="cuowu">错　误：- 字</li>
+                        <li class="zongzishu">总字数：- 字</li>
+                        <li class="tuige">退　格：- 次</li>
+                    </ul>
+                </div>
+                <div class="typing_info_link"><a href="javascript:;" id="pause_a" class="pause">暂停</a><a href="javascript:;" class="light">关灯</a><a href="javascript:;" class="gaicuo">错字？</a><a href="./" class="home">退出</a>
+                    <div class="\&quot;clear\&quot;"></div>
+                </div>
+            </div>
+        </div>
+        </body>
+        <script>
+            var nav = document.getElementsByClassName('nav')[0];
+            var light = document.getElementsByClassName('light')[0];
+            var content = document.getElementById('content');
+            var index_ = 0;
+            nav.onmousedown = function (e) {
+                var e = window.event || e;
+                var thisoffsetX = e.offsetX;
+                var thisoffsetY = e.offsetY;
+                document.onmousemove = function (e) {
+                    var e = window.event || e;
+                    nav.style.position = 'absolute';
+                    nav.style.left = e.clientX - thisoffsetX + 'px';
+                    nav.style.top = e.clientY - thisoffsetY + 'px';
+                }
+            }
+            nav.onmouseup = function () {
+                document.onmousemove = null;
+            }
+            light.onclick = function (e) {
+                var event = window.even || e;
+                index_++;
+                event.preventDefault();
+                if (index_ % 2 == 1) {
+                    content.style.background = 'black';
+                }
+                if (index_ % 2 == 0) {
+                    content.style.background = 'red';
+                }
+            }
+        </script>
+
+</html>
