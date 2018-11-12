@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //1.打开数据库
+    var request = window.indexedDB.open('ABC');
+    var request1 = window.indexedDB.open('ABCD');
+    //返回 IDBRequest对象
+    //open(dbName,dbVersion)
+    // dbName :string
+    //dbVersion :number
+    //1.1error事件
+    request.onerror = function () {
+        console.log('失败')
+    }
+
+    //1.2success事件
+    request.onsuccess = function () {
+        console.log('成功');
+    }
+
+    //1.3upgradeneeded事件
+    // 若果指定的版本号大于数据库的时间版本号，就会发生数据库升级事件；
+
+    request.onupgradeneeded = function () {
+        console.log('onupgradeneeded');
+    }
+
+    //2.新建数据库
+    //同时打开数据库方法，当数据库不存在的时候，调用open（） 是创建数据库
+
+
+
+    //3.创建对象仓库
+    //在数据库版本更新时，更改数据库的结构
+    request.onupgradeneeded = function (evt) {
+        // console.log('版本更新时');
+        var db = evt.target.result;
+        var objectStore = db.createObjectStore('user', {
+            keyPath: 'id'
+        })
+        var s = db.createObjectStore('shang', {
+            keyPath: 'id'
+        })
+    }
+
+    //4创建数据
+    //
+    var data = {
+        username: 'huskyuancle',
+        age: '29',
+        phoneNum = '2398098',
+        qq = '2345678',
+        email: 'qwertyui@qq.com'
+    }
+
+    function add(dataObj) {
+        var db = request.result;
+        //通过IDBDatabase
+        var transaction_Obj = db.transaction(['shang'], 'readwrite');
+        //通过获取对象仓库对象
+        
+        var objectStore_obj = transaction_Obj.objectStore('shang');
+        var request_1 = objectStore_obj.add(dataObj);
+        request.onsuccess = function () {
+            console.log('成功')
+        }
+        request.onerror = function () {
+            console.log('失败');
+        }
+    }
+</script>
+
+</html>

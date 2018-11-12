@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // var db; //IDBDatabase
+    // var openRequest; //IDBOpenDBRequest
+    //添加数据库
+    // function creatDB(dbName, dbVersion) {
+    //     var openRequest = window.indexedDB.open(dbName, dbVersion);
+    //     openRequest.onerror = function (e) {
+    //         console.log('Database error:' + e);
+    //     }
+    //     openRequest.onsuccess = function () {
+    //         console.log('Database created');
+    //         db = this.result;
+    //     }
+    // }
+    // //删除数据库
+    // function deleteDB(dbName) {
+    //     var deleteRequest = window.indexedDB.deleteDatabase(dbName);
+    //     deleteRequest.onerror = function () {
+    //         console.log('Database error:' + e);
+    //     }
+    //     deleteRequest.onsuccess = function () {
+    //         console.log('删除成功')
+    //     }
+    // }
+    // <!-- 
+    //     function createObjects(dbName, objectStoreName, keyPath_,  dbVersion) {
+    //         if (openRequest != undefined) { //关闭上一次没有关闭
+    //             openRequest.result.close();
+    //         }
+    //         var openRequest = window.indexedDB.open(dbName, dbVersion);
+    //         openRequest.onupgradeneeded = function (event) {
+    //             var db = event.target.result;
+    //             var osns = db.objectStoreNames; //他是一个对象
+    //             var flag = false;
+    //             for (var i = 0; i < osns.length; i++) {
+    //                 if (osns[i] == objectName) {
+    //                     flag = true;
+    //                 }
+    //             }
+    //             if (flag) {
+    //                 alert(objectName + '已存在')
+    //             } else {
+    //                 var objectStore = db.createObjectStore(objectStoreName, {
+    //                     keyPath: keyPath_,
+    //                     autoIncrement: true //id自增
+    //                 })
+    //                 objectStore.createIndex('username', 'username1', {
+    //                     unique: true
+    //                 });
+    //                 objectStore.createIndex('age', 'age1', {
+    //                     unique: false
+    //                 });
+    //                 objectStore.createIndex('phoneNumber', 'phoneNumber1', {
+    //                     unique: false
+    //                 });
+    //                 objectStore.createIndex('email', 'email1', {
+    //                     unique: true
+    //                 });
+    //                 //三个参数  (parm1,parm2,obj)
+    //                 //parm1  :索引名称
+    //                 //parm2:索引属性 ，原始的字段名称
+    //                 //obj  :索引的配置对象
+    //                 //{unique}  true 值不能重复   false值可以重复
+
+    //             }
+    //         }
+    //         //上一次的数据库还未关闭 
+    //         openRequest.onblocked = function () {
+    //             close('上次未关闭');
+    //         }
+    //     } -->
+
+    var data = [{
+        username: 'huskyuanclesdsdd',
+        age: '229',
+        phoneNumber: '23938098',
+        qq: '234335678',
+        email: 'qwerdfdtyui@qq.com'
+    }, {
+        username: 'huskyuanesdsdd',
+        age: '29',
+        phoneNumber: '2398098',
+        qq: '23433678',
+        email: 'qwerdfdty@qq.com'
+    }]
+    var openRequest = window.indexedDB.open('j');
+
+    function add(dataObj) {
+        var db = openRequest.result;
+        //通过IDBDatabase
+        var transaction_Obj = db.transaction(['student'], 'readwrite');
+        //通过获取对象仓库对象
+        var objectStore_obj = transaction_Obj.objectStore('student');
+        for (var i = 0; i < dataObj.length; i++) {
+            var request_1 = objectStore_obj.add(dataObj[i]);
+        }
+
+        request_1.onsuccess = function () {
+            console.log('成功')
+        }
+        request_1.onerror = function () {
+            console.log('失败');
+        }
+    }
+</script>
+
+</html>

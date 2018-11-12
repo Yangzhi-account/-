@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            height: 0;
+        }
+        .main{
+            font-size: 0;
+        }
+    .head{
+        width: 100%;
+        height:150px;
+        background: #f0f0f0;
+        line-height: 147px;
+    }
+     .head input {
+         border-radius: 5px;
+         vertical-align: bottom;
+        height: 40px;
+     }
+     .nav{
+        width: 150px;
+        height: 400px;
+        background: #d8c2c2; 
+        display: inline-block;
+        border-right: 1px solid rgb(220,220,220);
+        vertical-align: top;
+        font-size: 1rem;
+     }
+     .content{
+         width: calc(100% - 158px);
+         height: 400px;
+         background: #d8c2c2; 
+         display:inline-block;
+         vertical-align: top;
+         text-align: center;
+          position: relative;
+     }
+     .content .text{
+         margin-top: 10px;
+         height: 30px;
+         
+     }
+     .btn2{
+        border-radius: 5px;
+        height: 30px;
+        font-size: 1.3rem;
+     }
+     .box{
+         width: 100px;
+         height: 40px;
+         border: 1px solid rgb(220,220,220);
+     }
+     .mask{
+         position: absolute;
+         top:0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: pink;
+         font-size: 1.2rem;
+         display: none;
+     }
+     .mask input{
+         width: 100px;
+         height: 30px;
+
+     }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="head">
+            <input type="button" value="新建数据库" class="btn1">
+        </div>
+        <div class="nav"></div>
+        <div class="content">
+
+            <input type="text" class="text" placeholder="数据库名">
+            <input type="text" class="text" placeholder="仓库名">
+            <input type="text" class="text" placeholder="版本号">
+            <div><input type="button" value="添加" class="btn2"></div>
+            <div class="mask"> 
+                <input type="text" placeholder="仓库名">
+                <input type="text" placeholder="主键">
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    var btn1 = document.getElementsByClassName('btn1')[0];
+    var btn2 = document.getElementsByClassName('btn2')[0];
+    var nav = document.getElementsByClassName('nav')[0];
+    var mask=document.getElementsByClassName('mask')[0];
+    var openRequest;
+    var arr = [];
+    var html = '';
+    btn2.onclick = function () {
+        var text0 = document.getElementsByClassName('text')[0].value;
+        var text1 = document.getElementsByClassName('text')[1].value;
+        var text2 = document.getElementsByClassName('text')[2].value;
+        createObjects(text0, text1, text2)
+        arr.push(text0);
+        for (var i = 0; i < arr.length; i++) {
+            html += '<div class="box">' + arr[i] + '</div>';
+        }
+        nav.innerHTML = html;
+        var box=document.getElementsByClassName('box');
+        for(var i=0;i<box.length;i++){
+            box[i].onclick=function(){
+                mask.style.display='block';
+            }
+        }
+
+    }
+
+
+    function getDataByKey(db, storeName) {
+        var transaction = db.transaction(storeName, 'readwrite');
+        var store = transaction.objectStore(storeName);
+        return store;
+
+    }
+
+
+    function createObjects(dbName, objectName, dbVersion) {
+        if (openRequest != undefined) { //关闭上一次没有关闭
+            openRequest.result.close();
+        }
+        var openRequest = window.indexedDB.open(dbName, dbVersion);
+        openRequest.onupgradeneeded = function (event) {
+            var db = event.target.result;
+            var osns = db.objectStoreNames; //他是一个对象
+            var flag = false;
+            for (var i = 0; i < osns.length; i++) {
+                if (osns[i] == objectName) {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                alert(objectName + '已存在')
+            } else {
+                db.createObjectStore(objectName, {
+                    keyPath: 'id'
+                })
+            }
+        }
+        //上一次的数据库还未关闭 
+        openRequest.onblocked = function () {
+            close('上次未关闭');
+        }
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+1.键值对存储
+采用的  对象仓库（object  store）存储，所有类型的数据都可以直接存储；
+2.异步  异步回调函数
+    用户依然可以进行其他操作
+3.支持事务
+       事务回滚
+       indexDB支持事务（transaction），这意味着一系列的操作中，只要有一步出错或失败，整个事务都取消，数据会回滚到事务发生之前的状态。
+4.同源限制
+   indexDB受同源策略的限制
+   同协议，同端口，同域名；
+5.存储空间大
+比localStorage大得多，一般来说不少于250MB，甚至在浏览器中没有上限
+6.支持二进制数据的存储
+    不仅可以存储字符串，还可以存储二进制数据（ArrayBuffer 对象和Blob对象）
+    indexedDB  是一个比较复杂的api接口
+
+
+       数据库 IDBDatabase  对象
+       对象仓库  IDBObjectStore 对象
+            数据记录  
+            {id:1,username:'d',password:'dd'}
+       索引 IDBIndex  对象
+           为了加速数据的一个检索，可以在对象仓库里面为不同的属性建立索引
+       事务  IDBTransaction 对象
+           数据记录的相关操作  （增删改查），都要通过事务完成
+          所有的事务对象提供error，abort（成功）和complate（完成）三个事件；
+       操作请求 IDBRequest 对象
+     -->
+</body>
+</html>
