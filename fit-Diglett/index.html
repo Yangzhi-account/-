@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .wrap {
+            border: 1px solid red;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .wrap .score {
+            position: absolute;
+            top: 12px;
+            left: 60px;
+            font-size: 1.2rem;
+        }
+        
+        .wrap .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.4);
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            /* display: none; */
+        }
+        
+        .mask1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.4);
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            z-index: 1;
+            display: none;
+        }
+        
+        .startBtn {
+            margin-top: 160px;
+            color: white;
+            font-weight: bolder;
+            background: rgb(253, 165, 41);
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .mask1 .startBtn {
+            margin-top: 40px;
+        }
+        
+        .gameTime {
+            position: absolute;
+            top: 65px;
+            left: 63px;
+            overflow: hidden;
+        }
+        
+        .gameTime img {
+            line-height: 30px;
+        }
+        
+        .role {
+            position: absolute;
+            /* left: 100px;
+            top: 192px; */
+            width: 108px;
+            height: 101px;
+            /* background: url('img/h.png'); */
+            /* background-position: -540px 0; */
+            /* background: url('img/h.png'); */
+            /* background-position: -324px 0; */
+            background-position: -974px 0;
+        }
+        
+        p {
+            margin-top: 130px;
+            color: azure;
+        }
+        
+        .h {
+            background: url('img/h.png');
+        }
+        
+        .x {
+            background: url('img/x.png');
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- 背景图 -->
+        <img src="img/game_bg.jpg" alt="">
+        <!-- 积分 -->
+        <div class="score">0</div>
+        <!-- 游戏时间 -->
+        <div class="gameTime">
+            <img src="img/progress.png" alt="">
+        </div>
+        <!-- 遮罩层 -->
+        <div class="mask">
+            <div class="startBtn">开始游戏</div>
+        </div>
+        <div class="mask1">
+            <p>游戏结束</p>
+            <div class="startBtn">
+                重新开始</div>
+        </div>
+        <!-- 所有的角色 -->
+        <div class="roleAll">
+            <!-- <div class="role"></div> -->
+        </div>
+    </div>
+
+</body>
+<script>
+    //1.布局
+    var role_pos = [{
+        x: 18,
+        y: 160
+    }, {
+        x: 96,
+        y: 114
+    }, {
+        x: 184,
+        y: 139
+    }, {
+        x: 101,
+        y: 188
+    }, {
+        x: 13,
+        y: 218
+    }, {
+        x: 195,
+        y: 210
+    }, {
+        x: 26,
+        y: 292
+    }, {
+        x: 116,
+        y: 272
+    }, {
+        x: 205,
+        y: 295
+    }];
+
+    //获取开始按钮
+    var startBtn = document.getElementsByClassName('startBtn')[0];
+    //单次移动的偏移量，进度条
+    var mask = document.getElementsByClassName('mask')[0];
+    var start_;
+    var speed = 0;
+    //进度条刷新的时间
+    var progressTime = 1000; //单位ms
+    //时间进度条 计时器
+    var progressTimer = null;
+    var gameTime = 20;
+    var score_val = 0;
+    var sorce = document.getElementsByClassName('score')[0];
+    var thisOfffsetWidth = document.getElementsByClassName('gameTime')[0].offsetWidth;
+    //2.业务逻辑处理
+    //a.添加时间
+    startBtn.onclick = function() {
+        // maskDiv.style.display = 'none';
+        this.parentNode.style.display = 'none';
+        //时间开始 
+        progressTimer = setInterval(function() {
+            var thisOfffsetWidth = document.getElementsByClassName('gameTime')[0].offsetWidth;
+            if (thisOfffsetWidth <= 0) {
+                clearInterval(progressTimer);
+                clearInterval(start_);
+
+            } else {
+                thisOfffsetWidth -= speed;
+                document.getElementsByClassName('gameTime')[0].style.width = thisOfffsetWidth + 'px';
+                // getfit();
+            }
+
+        }, progressTime)
+        gameStart()
+    }
+
+
+    //在资源加载完成后，重新计算进度条的速度
+    window.onload = function() {
+            speed = document.getElementsByClassName('gameTime')[0].offsetWidth / (gameTime * 1000 / progressTime)
+        }
+        //随机数
+    function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    var roleAll = document.getElementsByClassName('roleAll')[0];
+    // function getfit() {
+    //   
+    //     var html = '';
+    //     html += '<div class="role"></div>'
+    //     roleAll.innerHTML = html;
+    //     var role = document.getElementsByClassName('role')[0];
+    //     role.style.left = role_pos[getrandom].x + 'px';
+    //     role.style.top = role_pos[getrandom].y + 'px';
+    // } 
+    //游戏开始
+    function gameStart() {
+        start_ = setInterval(function() {
+            // if (wolf != undefined) {
+            roleAll.appendChild(createWolf());
+            // }
+
+        }, 300)
+    }
+
+
+    //创建狼（大朗  小狼）
+    function createWolf() {
+        var getrandom = getRandom(0, 8);
+        // if (getrandom == -1 || getrandom - 0) {
+        //     return;
+        // }
+        var wolf = document.createElement('div');
+        var cn = getRandom(0, 100) >= 60 ? 'x' : 'h';
+        wolf.className = 'role ' + cn;
+        //获取角色随机出现的位置
+
+        wolf.style.left = role_pos[getrandom].x + "px";
+        wolf.style.top = role_pos[getrandom].y + "px";
+        wolf.index_ = 0; //当前显示第几张图
+        wolf.ins = 5
+        wolf.pos=getrandom;
+        wolf.flag = false; //开关，当前角色未被点击
+        wolf.type = cn; //当前角色的类型
+        var pos_obj = role_pos[getrandom]; //第一种方法   报错
+        role_pos.splice(getrandom, 1);
+
+        // 上升的动画
+        wolf.timer = setInterval(function() {
+                if (wolf.index_ <= 5) {
+                    wolf.style.backgroundPosition = -(wolf.index_ * 108) + 'px 0';
+                    wolf.index_++;
+                } else {
+                    clearInterval(wolf.timer);
+                    dowmTime = setInterval(function() {
+                        if (wolf.index_ == 0) {
+                            clearInterval(wolf.downTime);
+                            wolf.parentNode.removeChild(wolf);
+                            role_pos.splice(getrandom, 0, pos_obj); //第一种方法，报错
+                        } else {
+                            wolf.index_--;
+                            wolf.style.backgroundPosition = -(wolf.index_ * 108) + 'px 0';
+                        }
+                    }, 300)
+                }
+
+
+            }, 200)
+            // 隐藏的动画，下降的动画
+            // wolf.downTime = function() {
+            //     dowmTime = setInterval(function() {
+            //         if (wolf.index_ == 0) {
+            //             clearInterval(start_);
+            //             clearInterval(wolf.downTime);
+            //         } else {
+            //             wolf.index_--;
+            //             wolf.style.backgroundPosition = -(wolf.index_ * 108) + 'px 0';
+
+
+        //         }
+        //     }, 300)
+        // }
+
+        //打中的时候
+        wolf.onclick = function() {
+                if (this.flag == false) {
+                    this.flag = true;
+                    scoring(this.type);
+                    clearInterval(this.timer);
+                    clearInterval(this.dowmTime);
+                    var that_ = this;
+                    wolf.djTime = setInterval(function() {
+                        if (that_.ins < 9) {
+                            that_.ins++;
+                            that_.style.backgroundPosition = -(wolf.ins * 108) + 'px 0';
+                        } else {
+                            clearInterval(that_.djTime);
+                            that_.parentNode.removeChild(that_);
+                            role_pos.splice(getrandom, 0, pos_obj);
+                        }
+
+                    }, 300)
+                }
+
+            }
+            //打击后的动画
+        // return wolf;
+        var roleAll = document.getElementsByClassName('role');
+            var flag = false;
+            for (var i = 0; i < roleAll.length; i++) {
+                if (getrandom == roleAll[i].getrandom) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (flag) {
+                return createOneWolf();
+            } else {
+                return wolf;
+            }
+
+
+    } 
+
+    var startBtn1 = document.getElementsByClassName('startBtn')[1];
+    var mask1 = document.getElementsByClassName('mask1')[0];
+
+    function scoring(role_type) {
+        var this_score = role_type == 'x' ? -10 : 10;
+        score_val += this_score;
+        sorce.innerHTML = score_val;
+        if (score_val < 0) {
+
+            mask1.style.display = 'block';
+            // mask1.style.display = 'block';
+            clearInterval(start_);
+            clearInterval(progressTimer);
+            startBtn1.onclick = function() {
+                // location.reload();
+                sorce.innerHTML = 0;
+                mask1.style.display = 'none';
+                mask.style.display = 'block';
+                document.getElementsByClassName('gameTime')[0].style.width = 180 + 'px'
+
+            }
+        }
+    }
+</script>
+
+
+</html>
