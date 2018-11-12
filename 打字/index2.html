@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>打字游戏</title>
+<style type="text/css">
+	.code{
+		position: absolute;
+		top: 0px;
+	}
+</style>
+<script type="text/javascript" src="game.js"></script>
+</head>
+<body>
+	<div>
+		<input id="startBtn"  type="button" value="开始游戏" onclick="startBtnClick()"/>
+		<input id="startBtn" type="button" value="停止游戏" onclick="stopGame()"/>
+		<div>游戏<label id="gameNumLabel">0</label>积分</div>
+	</div>
+</body>
+<script>
+var __startGame = false;
+var interValTimer = 1000;
+var gameTimerId;
+var labelMap = new Object();
+var gameNum = 0;
+ 
+function runGame(){
+	var width = document.documentElement.clientWidth;
+	var height = document.documentElement.clientHeight;
+	var code = createCode();
+	var label = createLabel(code);
+	label.codeName = code;
+	var labelLeft = getRandom(width);
+	label.style.left = labelLeft + "px";
+	document.body.appendChild(label);
+	runLabel(label);
+}
+function runLabel(label){
+	label.timerId = setInterval(function(){
+		var top = parseInt(label.style.top) || 0;
+		var height = document.documentElement.clientHeight;
+		if(top>=height-30){
+			//clearInterval(label.timerId);
+			//label.parentNode.removeChild(label);
+			removeLabelByCode(label.codeName);
+		}else{
+			label.style.top=top+1+"px";
+		}
+	},50);
+	if(labelMap[label.codeName]){
+		labelMap[label.codeName].push(label);
+	}else{
+		labelMap[label.codeName] = [label];
+	}
+}
+
+function removeLabelByCode(codeName){
+	if(labelMap[codeName] && labelMap[codeName].length){
+		var label = labelMap[codeName].shift();
+		clearInterval(label.timerId);
+		updateLabelNum(1);
+		label.parentNode.removeChild(label);
+	}
+}
+function createCode(){
+	var code = getRandom(26);
+	return String.fromCharCode(65+code);
+}
+function createLabel(code){
+	var label = document.createElement("label");
+	label.className = 'code';
+	label.innerHTML = code;
+	return label;
+}
+function getRandom(maxValue){
+	return parseInt(Math.random()*maxValue);
+}
+function startGame(){
+	if(!__startGame){
+		gameTimerId = setInterval(runGame,interValTimer);
+		__startGame = true;
+	}
+}
+function startBtnClick(){
+	startGame();
+}
+function stopGame(){
+	clearInterval(gameTimerId);
+	for(var p in labelMap){
+		var codes = labelMap[p];
+		for ( var i = codes.length; i >= 0; i--) {
+			removeLabelByCode(p);
+		}
+	}
+	labelMap = {};
+	__startGame=false;
+	document.getElementById("gameNumLabel").innerHTML = '0';
+}
+function updateLabelNum(addNum){
+	var gameNumLabel = document.getElementById("gameNumLabel");
+	gameNumLabel.innerHTML = gameNum+=addNum;
+};
+ 
+window.onload=function(){
+	document.documentElement.addEventListener("keydown",function(event){
+		var key = String.fromCharCode(event.keyCode);
+		removeLabelByCode(key);
+	},false);
+};
+
+</script>
+</html>

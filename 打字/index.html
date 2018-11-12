@@ -22,6 +22,25 @@
             display: block;
             margin-right: 0px;
         }
+        input {
+            text-indent: 13px
+        }
+        .min{
+            display: inline-block;
+        }
+        .second{
+            display: inline-block;
+        }
+        .true {
+            background: green;
+        }
+        
+        .flase {
+            background: red;
+        }
+        .bai{
+            background: rgb(220,220,220);
+        }
     </style>
 </head>
 <link rel="stylesheet" href="index.css">
@@ -31,20 +50,26 @@
 
     <div class="content1">
         <div id="content" class="typing_content font1" style="height: 596px;">
-            <h5 class="start_ts"><span class="jishi_ts">开始输入时计时！</span><span class="group_typing_info">文章名称：<strong>a girl selling matches</strong>，类别：<strong>英文</strong>，设定时间：<strong>5分钟</strong>。</span></h5>
+            <h5 class="start_ts"><a class="jishi_ts">开始输入时计时！</a><a class="group_typing_info">文章名称：<strong>a
+                        girl selling matches</strong>，类别：<strong>英文</strong>，设定时间：<strong>5分钟</strong><a></h5>
 
-            <div class="typing typing_on">dfd f</div>
-            <input type="text">
-            <div class="typing typing_on"></div>
-            <input type="text">
-            <div class="typing typing_on"></div>
-            <input type="text">
+            <div class="typing typing_on  anxia"> </div>
+            <input type="text"  tabindex="1">
+            <div class="typing typing_on  anxia "></div>
+            <input type="text"  tabindex="2">
+            <div class="typing typing_on  anxia "></div>
+            <input type="text"  tabindex="3">
             <div class="nav" id="typing_info">
                 <div id="typing_info_li">
                     <ul>
                         <li class="daojishi">
-                            <div></div>倒计时</li>
-                        <li class="daojishi_time">05:00</li>
+                            <div></div>倒计时
+                        </li>
+                        <li class="daojishi_time">
+                            <div class="min">05</div>:
+                            <div class="second">00</div>
+
+                        </li>
                         <li class="sheding">设定时间：5分钟</li>
                         <li class="sudu">速　度：- WPM</li>
                         <li class="zhengquelv">正确率：- %</li>
@@ -53,42 +78,127 @@
                         <li class="tuige">退　格：- 次</li>
                     </ul>
                 </div>
-                <div class="typing_info_link"><a href="javascript:;" id="pause_a" class="pause">暂停</a><a href="javascript:;" class="light">关灯</a><a href="javascript:;" class="gaicuo">错字？</a><a href="./" class="home">退出</a>
+                <div class="typing_info_link"><a href="javascript:;" id="pause_a" class="pause">暂停</a><a href="javascript:;"
+                        class="light">关灯</a><a href="javascript:;" class="gaicuo">错字？</a><a href="./" class="home">退出</a>
                     <div class="\&quot;clear\&quot;"></div>
                 </div>
             </div>
         </div>
-        </body>
-        <script>
-            var nav = document.getElementsByClassName('nav')[0];
-            var light = document.getElementsByClassName('light')[0];
-            var content = document.getElementById('content');
-            var index_ = 0;
-            nav.onmousedown = function (e) {
-                var e = window.event || e;
-                var thisoffsetX = e.offsetX;
-                var thisoffsetY = e.offsetY;
-                document.onmousemove = function (e) {
-                    var e = window.event || e;
-                    nav.style.position = 'absolute';
-                    nav.style.left = e.clientX - thisoffsetX + 'px';
-                    nav.style.top = e.clientY - thisoffsetY + 'px';
-                }
+</body>
+<script>
+    var timer;
+    var nav = document.getElementsByClassName('nav')[0];
+    var light = document.getElementsByClassName('light')[0];
+    var content = document.getElementById('content');
+    var anxia = document.getElementsByClassName('anxia'); //装文本的维数组
+    var index_ = 0; //判断点击的次数
+    var shurukuang = document.getElementsByTagName('input');
+    var min = document.getElementsByClassName('min')[0];
+
+    var second = document.getElementsByClassName('second')[0];
+    var all_span = document.getElementsByTagName('span');
+    var html = 'Once upon a time little dfdf fee a time littl eefef upon a time little';
+    //换行
+
+    var arr_html = html.split('');
+
+    for (var i = 0; i < shurukuang.length; i++) {
+        var html_1 = '';
+        for (var j = i * 40; j < arr_html.length; j++) {
+            if (j < (i + 1) * 40) {
+                html_1 += '<span>' + arr_html[j] + '</span>';
             }
-            nav.onmouseup = function () {
-                document.onmousemove = null;
+        }
+        anxia[i].innerHTML = html_1;
+    }
+    //开灯 关灯   存在冒泡
+    nav.onmousedown = function (e) {
+        var e = window.event || e;
+        var thisoffsetX = e.offsetX;
+        var thisoffsetY = e.offsetY;
+        document.onmousemove = function (e) {
+            var e = window.event || e;
+            nav.style.position = 'absolute';
+            nav.style.left = e.clientX - thisoffsetX + 'px';
+            nav.style.top = e.clientY - thisoffsetY + 'px';
+        }
+    }
+    nav.onmouseup = function () {
+        document.onmousemove = null;
+    }
+    light.onclick = function (e) {
+        var event = window.even || e;
+        index_++;
+        event.cancleBubble = true;
+        if (index_ % 2 == 1) {
+            content.style.background = 'black';
+        }
+        if (index_ % 2 == 0) {
+            content.style.background = 'white';
+        }
+    }
+
+    function shuru() { // 获取焦点时，让上一个div变颜色
+        for (var i = 0; i < shurukuang.length; i++) {
+            shurukuang[i].onfocus = function () {
+                this.previousElementSibling.style.backgroundColor = 'rgb(220,220,220)';
             }
-            light.onclick = function (e) {
-                var event = window.even || e;
-                index_++;
-                event.preventDefault();
-                if (index_ % 2 == 1) {
-                    content.style.background = 'black';
-                }
-                if (index_ % 2 == 0) {
-                    content.style.background = 'red';
-                }
+            shurukuang[i].onblur = function () {
+                this.previousElementSibling.style.backgroundColor = 'rgb(220,220,220)';
             }
-        </script>
+        }
+    }
+    shuru()
+    //倒计时
+    function start_() {
+        var time_ = 4; //分
+        var second_ = 60; //秒
+        timer = setInterval(ee, 10);
+
+        function ee() {
+            second_--;
+            if (second_ == 0) {
+                time_--;
+                min.innerHTML.innerHTML = time_;
+                second_ = 59;
+            }
+            if (second_ == 1 && time_ == 0) {
+                clearInterval(timer);
+            }
+
+            second.innerHTML = second_;
+            min.innerHTML = time_;
+        }
+    }
+    // start_(); 
+    var inputArr = [];
+    var inputTmp=[];
+    shurukuang[0].onkeypress = function (e) {
+        var event = window.event || e;
+        inputArr.push(String.fromCharCode(event.charCode));  
+        shurukuang[0].onkeydown = function (e) {
+            var event = window.event || e;
+            inputTmp = inputArr.concat();
+            // console.log(event.keyCode)
+            switch (event.keyCode) {
+                 case 8:
+                    inputArr.pop();
+                    for (var i = 0; i < inputTmp.length; i++) {
+                        if (inputTmp[i] != inputArr[i]) {
+                            all_span[i].className = 'bai';
+                        }
+                    }
+            }
+        }
+
+        for (var i = 0; i < inputArr.length; i++) {
+            if (inputArr[i] == arr_html[i]) {
+                all_span[i].className = 'true';
+            } else {
+                all_span[i].className = 'flase';
+            }
+        }
+    }
+</script>
 
 </html>
