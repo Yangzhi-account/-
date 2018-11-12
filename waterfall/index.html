@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 100%;
+            border: 1px solid red;
+        }
+        
+        .item {
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+            color: red;
+            position: absolute;
+        }
+        
+        .item-img {
+            position: relative;
+            width: 100%;
+        }
+        
+        .item-img:hover .mask {
+            display: inline;
+        }
+        
+        .item-img img {
+            width: 100%;
+        }
+        
+        .mask {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        
+        .txt {
+            text-align: center;
+            padding-left: 45%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 单个图文块 -->
+        <!-- <div class="item">
+            <div class="item-img">
+                <img src="imgs/2.jpeg" alt="">
+                <div class="mask">图片</div>
+            </div>
+            <span class="txt">文本</span>
+        </div> -->
+
+
+
+    </div>
+    <script>
+        var json_obj = {
+            data: [{
+                imgurl: 'imgs/2.jpeg',
+                content: '韩浩哲'
+            }, {
+                imgurl: 'imgs/3.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/4.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/5.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/6.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/7.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/8.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/10.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/11.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/12.jpeg',
+                content: 'ddfddfdf'
+            }, {
+                imgurl: 'imgs/13.jpeg',
+                content: '浮动分'
+            }]
+        }
+        var container = document.getElementsByClassName('container')[0];
+
+        function createItem() {
+            var html = '';
+            for (var i = 0; i < json_obj.data.length; i++) {
+                html += '<div class="item"><div class="item-img"><img src="' + json_obj.data[i].imgurl + '" alt=""><div class="mask">' + json_obj.data[i].content + '</div></div><p class="content">dfdf </p></div>'
+            }
+
+            container.innerHTML += html;
+        }
+        createItem();
+
+
+        function pos() {
+            var colheight_arr = []; //存储所有列的高度
+            var winsize = document.documentElement.clientWidth;
+            var item_all = document.getElementsByClassName('item');
+            //单个图文数据块的宽度
+            var item_width = item_all[0].offsetWidth;
+            //container可以容纳的列数
+            var col_num = parseInt(winsize / item_width);
+            // var colheight_arr = new Array(col_num);
+
+            for (var i = 0; i < item_all.length; i++) {
+                //判断是否为第一行的数据
+                if (i < col_num) {
+                    colheight_arr.push(item_all[i].offsetHeight)
+                    item_all[i].style.top = 0 + 'px';
+                    item_all[i].style.left = item_width * i + 'px';
+                } else {
+                    //当前所有勒种最小的那一列
+                    var minIndex = getArrMinIndex(colheight_arr);
+                    item_all[i].style.left = item_width * minIndex + 'px';
+                    item_all[i].style.top = colheight_arr[minIndex] + 'px';
+                    //更新每一列的高度
+                    colheight_arr[minIndex] += item_all[i].offsetHeight;
+                }
+            }
+        }
+
+        window.onload = function() {
+                pos();
+                //重新排列。
+            }
+            //获取数组的最小值的索引
+        function getArrMinIndex(arr) {
+            var min = arr[0];
+            var index = 0;
+            for (var i = 1; i < arr.length; i++) {
+                if (min > arr[i]) {
+                    min = arr[i];
+                    index = i;
+                }
+            }
+            return index;
+            // return {
+            //     i: index,
+            //     minheigth: min
+            // }
+
+        }
+        //2.检测滚动变化的时间
+        document.onscroll = function() {
+            if (document.documentElement.scrollTop >= document.documentElement.scrollHeight - document.documentElement.clientHeight) {
+                createItem();
+                pos()
+            }
+        }
+        window.onresize = function() {
+            createItem();
+            pos()
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            border: 1px solid rgb(220, 220, 220);
+            margin-bottom: 100px;
+            position: relative;
+            width: 200px;
+        }
+        
+        .mask {
+            display: inline-block;
+        }
+        
+        img {
+            display: none;
+            position: absolute;
+            top: 24px;
+            left: 0;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .mask:hover img {
+            display: inline-block;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="mask">
+            <img src="imgs/11.jpeg" alt=""> 作者：韩浩哲
+        </div>
+    </div>
+</body>
+<script>
+    var json_d = {
+        data: [{
+            title: '分类',
+            list: '作者',
+            content: '内秀外联',
+            img: 'imgs/11.jpeg'
+        }, {
+            title: ' 作用',
+            list: '功效',
+            content: '无敌手',
+            img: 'imgs/7.jpeg'
+        }, {
+            title: ' 功能',
+            list: '列表',
+            content: '内秀外联',
+            img: 'imgs/8.jpeg'
+        }]
+    }
+    var box_ = document.getElementsByClassName('box')[0];
+
+    var html = '';
+    for (var i = 0; i < json_d.data.length; i++) {
+        html += '<div class="box"><div class="mask"><img src="' + json_d.data[i].img + '"alt="">作者:' + json_d.data[i].title + '</div></div> '
+    }
+    box_.innerHTML = html;
+</script>
+
+</html>

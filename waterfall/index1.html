@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 100%;
+            border: 1px solid red;
+        }
+        
+        .item {
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+            color: red;
+            position: absolute;
+            transition: 0.5s;
+        }
+        
+        .item-img {
+            position: relative;
+            width: 100%;
+        }
+        
+        .item-img:hover .mask {
+            display: inline;
+        }
+        
+        .item-img img {
+            width: 100%;
+        }
+        
+        .mask {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        
+        .txt {
+            text-align: center;
+            padding-left: 45%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="item">
+            <div class="item-img">
+                <img src="imgs/2.jpeg" alt="">
+                <div class="mask">图片</div>
+            </div>
+            <span class="txt">文本</span>
+        </div>
+    </div>
+    <script>
+        var json_obj = {
+            data: [{
+                imgurl: 'imgs/3.jpeg',
+                content: '韩浩哲'
+            }, {
+                imgurl: 'imgs/6.jpeg',
+                content: '韩浩哲'
+            }, {
+                imgurl: 'imgs/8.jpeg',
+                content: '韩浩哲'
+            }, {
+                imgurl: 'imgs/12.jpeg',
+                content: 'jkldf '
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/6.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/8.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/2.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/4.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/5.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/7.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/6.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/8.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/10.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, {
+                imgurl: 'imgs/9.jpeg',
+                content: '韩浩dfd fd哲'
+            }, ]
+        }
+        var html = '';
+        var container = document.getElementsByClassName('container')[0];
+        //样式
+        function getcon() {
+            for (var i = 0; i < json_obj.data.length; i++) {
+                html += '<div class="item"><div class="item-img"><img src="' + json_obj.data[i].imgurl + '" alt=""><div class="mask">图片</div></div><span class="txt">' + json_obj.data[i].content + '</span></div>'
+            }
+            container.innerHTML += html;
+        }
+        getcon()
+
+        function pos() {
+            var arrHeigth = []; //为了储存所有列的高度
+            var itemAll = document.getElementsByClassName('item'); //
+            var minwid = document.documentElement.clientWidth;
+            var item_width = itemAll[0].offsetWidth;
+            var col_num = parseInt(minwid / item_width);
+            for (var i = 0; i < itemAll.length; i++) {
+                if (i < col_num) {
+                    arrHeigth.push(itemAll[i].offsetHeight);
+                    itemAll[i].style.top = 0 + 'px';
+                    itemAll[i].style.left = item_width * i + 'px';
+                } else {
+                    var minindex = minHeigth(arrHeigth);
+                    itemAll[i].style.top = arrHeigth[minindex] + 'px';
+                    itemAll[i].style.left = item_width * minindex + 'px';
+                    arrHeigth[minindex] += itemAll[i].offsetHeight;
+                }
+            }
+        }
+        window.onload = function() {
+            pos();
+        }
+
+
+        function minHeigth(arr) {
+            var index = 0;
+            var min = arr[0];
+
+            for (var i = 0; i < arr.length; i++) {
+
+                if (min > arr[i]) {
+                    min = arr[i];
+                    index = i;
+                }
+
+            }
+            return index;
+        }
+        window.onscroll = function() {
+            if (document.documentElement.scrollTop >= document.documentElement.scrollHeight - document.documentElement.clientHeight) {
+                getcon();
+                pos();
+            }
+        }
+        window.onresize = function() {
+            getcon()
+            pos();
+            location.replace();
+        }
+    </script>
+</body>
+
+</html>
