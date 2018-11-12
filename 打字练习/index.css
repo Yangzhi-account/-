@@ -1,0 +1,148 @@
+element.style {
+    display: block;
+    margin-right: 0px;
+    right: 10px;
+    left: 1px;
+    top: 95px;
+}
+
+#typing_info {
+    width: 200px;
+    position: absolute;
+    top: 140px;
+    right: 2%;
+    z-index: 999;
+    background: #FFF;
+    padding-top: 20px;
+    border-radius: 5px;
+}
+
+#typing_info #typing_info_li {
+    font-size: 14px;
+    color: #666;
+    height: auto;
+}
+
+ul,
+li,
+ol {
+    list-style: none;
+}
+
+#typing_info li.daojishi {
+    text-align: center;
+    line-height: 30px;
+    margin-bottom: 0px;
+}
+
+#typing_info .typing_info_link {
+    width: 160px;
+    margin-left: 20px;
+    height: 75px;
+    border-top: 1px solid #CCC;
+    padding: 10px 0px;
+}
+
+a:visited {
+    color: #800080;
+}
+
+#typing_info li {
+    line-height: 30px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+#typing_info li.daojishi div {
+    background: url('http://dazi.kukuw.com/style/images_new/ks_typing_ico_bg.png') no-repeat 60px 0px;
+    height: 80px;
+}
+
+#typing_info li.daojishi_time {
+    font-size: 32px;
+    font-family: "微软雅黑", "黑体";
+    font-weight: bold;
+    color: #f5a71b;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+#typing_info li.sudu {
+    padding-left: 65px;
+    background: url('http://dazi.kukuw.com/style/images_new/ks_typing_ico_bg.png') no-repeat 20px -230px;
+}
+
+#typing_info li.zhengquelv {
+    padding-left: 65px;
+    background: url('http://dazi.kukuw.com/style/images_new/ks_typing_ico_bg.png') no-repeat 20px -131px;
+}
+
+#typing_info li.cuowu {
+    padding-left: 65px;
+    background: url('http://dazi.kukuw.com/style/images_new/ks_typing_ico_bg.png') no-repeat 20px -280px;
+}
+
+#typing_info li.zongzishu {
+    padding-left: 65px;
+    background: url('http://dazi.kukuw.com/style/images_new/ks_typing_ico_bg.png') no-repeat 20px -181px;
+}
+
+#typing_info li.tuige {
+    padding-left: 65px;
+    background: url('http://dazi.kukuw.com/style/images_new/ks_typing_ico_bg.png') no-repeat 20px -80px;
+}
+
+#typing_info .typing_info_link a.pause {
+    background-position: 3px -37px;
+}
+
+#typing_info .typing_info_link a.light {
+    background-position: 3px -154px;
+}
+
+#typing_info .typing_info_link a.gaicuo {
+    background-position: 3px -117px;
+    margin-top: 5px;
+}
+
+#typing_info .typing_info_link a.home {
+    background-position: 3px -74px;
+    margin-top: 5px;
+}
+
+#typing_info .typing_info_link {
+    width: 160px;
+    margin-left: 20px;
+    height: 75px;
+    border-top: 1px solid #CCC;
+    padding: 10px 0px;
+}
+
+#typing_info .typing_info_link a {
+    display: block;
+    float: left;
+    width: 44px;
+    padding-left: 36px;
+    height: 35px;
+    line-height: 40px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: #666;
+    background: url('http://dazi.kukuw.com/style/images_new/typing_info_link.png') no-repeat;
+}
+
+#typing_info .typing_info_link a.pause {
+    background-position: 3px -37px;
+}
+
+#typing_info .typing_info_link a.gaicuo {
+    background-position: 3px -117px;
+    margin-top: 5px;
+}
+
+#typing_info li.sheding {
+    text-align: center;
+    font-size: 10px;
+    color: #999;
+    line-height: 15px;
+}
