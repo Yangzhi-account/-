@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li {
+            width: 50px;
+            height: 35px;
+            border-radius: 50%;
+            list-style: none;
+            border: 2px solid red;
+            display: inline-block;
+            text-align: center;
+            padding-top: 15px;
+            margin-right: 5px;
+            vertical-align: bottom;
+        }
+        
+        i {
+            width: 50px;
+            height: 35px;
+            border-radius: 50%;
+            list-style: none;
+            display: inline-block;
+            text-align: center;
+            padding-top: 15px;
+            margin-right: 5px;
+            border: 2px solid blue;
+            color: blue;
+            vertical-align: bottom;
+        }
+        
+        #btn {
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+
+<body>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <i></i>
+    <input type="button" id="btn" value="开奖">
+</body>
+<script>
+    var min_ = 1,
+        max_ = 33,
+        max_1 = 16;
+    var num = document.getElementsByTagName('li');
+    var obtn = document.getElementById('btn');
+    var arr = Array(num.length);
+    obtn.onclick = function() {
+        for (var i = 0; i < num.length; i++) {
+            num_ = num[i];
+            num_.innerText = Math.floor(Math.random() * (max_ - min_ + 1) + min_);
+            arr[i] = num_.innerText;
+        } //六个li标签
+
+        var num_1 = document.getElementsByTagName('i')[0];
+        num_1.innerText = Math.floor(Math.random() * (max_1 - min_ + 1) + min_); //i标签
+
+        if ((arr[0] || arr[1] || arr[2] || arr[3] || arr[4] || arr[5]) == num_1.innerText) {
+            alert("恭喜您中了五等奖");
+        }
+        // alert(num_1.innerText);
+
+
+
+
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = new Array(20);
+        //长20;
+        var min_ = 10;
+        var max_ = 1000;
+        for (var i = 0; i < arr.length; i++) {
+            var num = Math.floor(Math.random() * (max_ - min_ + 1) + min_);
+            arr[i] = '$' + num;
+        }
+        console.log(arr);
+    </script>
+</body>
+
+</html>
