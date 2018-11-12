@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .main{
+     position: relative;
+     width: 400px;
+     height: 600px;
+     border: 1px solid red;
+     font-size:0;
+ }
+ .box{
+     width: 20px;
+     height: 20px;
+     border: 1px solid black;
+     border-spacing: border-box;
+     display: inline-block;
+ }
+ 
+    </style>
+</head>
+
+<body>
+    <input type="button" value="开始游戏">
+    <div class="main">
+        <div class="box"></div>
+    </div>
+</body>
+<script>
+    var main = document.getElementsByClassName('main')[0];
+    var foodTime; //定时器
+    var snackTime;
+    var snackArr_1 = []; //装蛇位置的数组
+    var snackArr_2 = [];
+    var html = '';
+    for (var i = 0; i < 15; i++) { //地图
+        for (var j = 0; j < 15; j++) {
+            html += '<div class="box"></div>';
+        }
+        html = html + '</br>'
+        main.innerHTML = html
+    }
+    var box = document.getElementsByClassName('box');
+    var foodrandom = getRandm(0, box.length);
+    box[foodrandom].appendChild(getfood()); //把食物放在地图中    最后需要一个定时器
+    function getfood() { //生成食物
+        var food = document.createElement('div');
+        food.className = 'foodObj)';
+        food.style.width = '20px';
+        food.style.height = '20px';
+        food.style.background = 'black';
+        return food;
+    }
+    getfood();
+    //生成蛇
+    function getsnake() {
+        for (var i = 0; i < 3; i++) {
+            var snack = document.createElement('div');
+            snack.className = 'snack';
+            snack.style.width = '20px';
+            snack.style.height = '21px';
+            snack.style.background = 'red';
+            snack.style.border = '1px solid rgba(0,0,0,0.5)';
+            snack.style.position = 'absolute';
+            snack.style.top = '0px';
+            snack.style.left = i * 21 + 'px';
+            main.appendChild(snack);
+        }
+
+    }
+    getsnake();
+    var snack = document.getElementsByClassName('snack');
+
+    snack[snack.length - 1].style.background = 'yellow';
+    //蛇移动
+    var speed = snack[0].offsetWidth;
+
+
+
+    document.onkeydown = function (e) {
+        var ev = e || window.event;
+        var xxspeed = snack[snack.length - 1].offsetLeft;
+        var yyspeed = snack[snack.length - 1].offsetTop;
+        // yyspeed += speed;
+        if (ev.keyCode == 39) {
+            xxspeed += speed;
+            snack[snack.length - 1].style.left = xxspeed + 'px';
+        }
+        if (ev.keyCode == 37) {
+            xxspeed -= speed;
+            snack[snack.length - 1].style.left = xxspeed + 'px';
+        }
+        if (ev.keyCode == 38) {
+            yyspeed -= speed;
+            snack[snack.length - 1].style.top = yyspeed + 'px';
+        }
+        if (ev.keyCode == 40) {
+            yyspeed += speed;
+            snack[snack.length - 1].style.top = yyspeed + 'px';
+        }
+        for (var i = 0; i < 3; i++) {
+            var xx = snack[i].offsetLeft;
+            var yy = snack[i].offsetTop;
+            snackArr_1.push(xx);
+            snackArr_2.push(yy);
+            if (snackArr_1.length > 3) {
+                snackArr_1.splice(0, 3);
+            }
+            if (snackArr_2.length > 3) {
+                snackArr_2.splice(0, 3);
+            }
+            for (var j = snack.length - 1; j > 0; j--) {
+                snack[j - 1].style.left = snackArr_1[j] + 'px';
+                snack[j - 1].style.top = snackArr_2[j] + 'px';
+            }
+
+        }
+        // console.log(duang(snack[2],box[foodrandom]));
+        if( snack[2].offsetLeft>340-snack[2].offsetWidth||snack[2].offsetLeft<-2||snack[2].offsetTop>340-snack[2].offsetHeight||snack[2].offsetTop<0){
+            alert('2');
+        }
+    }
+
+    function getRandm(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function duang(h1, h2) {
+        var l1 = h1.offsetLeft; //蛇头
+        var r1 = h1.offsetLeft + h1.offsetWidth;
+        var t1 = h1.offsetTop;
+        var b1 = h1.offsetTop + h1.offsetHeight;
+
+        var l2 = h2.offsetLeft; //实物
+        var r2 = h2.offsetLeft + h2.offsetWidth;
+        var t2 = h2.offsetTop;
+        var b2 = h2.offsetTop + h2.offsetHeight;
+
+       if(r1>l2&&l1<r2&&b1>t2&&t1<b2){
+        return  true ;
+       }
+       return false;
+    }
+      
+</script>
+
+</html>
