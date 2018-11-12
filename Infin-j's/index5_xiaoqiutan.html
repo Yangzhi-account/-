@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .fbox {
+            width: calc(100% - 5px);
+            height: calc(100% - 5px);
+            position: absolute;
+            border: 1px solid red;
+        }
+        
+        .box3 {
+            background: red;
+            position: absolute;
+        }
+        
+        .box1 {
+            background: red;
+            position: absolute;
+        }
+        
+        .box2 {
+            background: red;
+            position: absolute;
+        }
+        
+        .box {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fbox">
+        <div class="box box1"></div>
+        <div class="box box2"></div>
+        <div class="box box3"></div>
+    </div>
+    <input type="button" name="" id="" value="开始游戏">
+</body>
+<script>
+    // var box = document.getElementsByClassName('box')[0];
+    var box1 = document.getElementsByClassName('box');
+    var fbox = document.getElementsByClassName('fbox')[0];
+    var lspeed = 5;
+    var tspeed = 5;
+    var lspeed1 = 5;
+    var tspeed1 = 5;
+    var lspeed2 = 5;
+    var tspeed2 = 5;
+    var randomWidth = getarr();
+    var randomWidth1 = getarr();
+
+    for (var i = 0; i < box1.length; i++) {
+        var num = funran(400, 1);
+        box1[i].style.width = randomWidth[i] + 'px';
+        //给随机的宽高
+        box1[i].style.height = randomWidth1[i] + 'px';
+        box1[i].style.left = num + 'px';
+        box1[i].style.top = num + 'px';
+        box1[i].style.background = randomColor();
+    }
+    setInterval(move, 300);
+    setInterval(move1, 15);
+    setInterval(move2, 25);
+
+    function move() {
+        var maxL = fbox.offsetWidth - box1[0].offsetWidth;
+        var maxT = fbox.offsetHeight - box1[0].offsetHeight;
+        var offL = box1[0].offsetLeft;
+        var offT = box1[0].offsetTop;
+        if (offL > maxL || offL < 0) {
+            lspeed *= -1;
+            box1[0].style.background = randomColor(); //给随机颜色
+        }
+        if (offT > maxT || offT < 0) {
+            tspeed *= -1;
+            box1[0].style.background = randomColor(); //给随机颜色
+        }
+        box1[0].style.top = offT + tspeed + 'px';
+        box1[0].style.left = offL + lspeed + 'px';
+    }
+
+    function move1() {
+        var maxL = fbox.offsetWidth - box1[1].offsetWidth;
+        var maxT = fbox.offsetHeight - box1[1].offsetHeight;
+        var offL = box1[1].offsetLeft;
+        var offT = box1[1].offsetTop;
+        if (offL >= maxL || offL <= 0) {
+            lspeed1 *= -1;
+            box1[1].style.background = randomColor();
+        }
+        if (offT >= maxT || offT <= 0) {
+            tspeed1 *= -1;
+            box1[1].style.background = randomColor();
+        }
+        box1[1].style.top = offT + tspeed1 + 'px';
+        box1[1].style.left = offL + lspeed1 + 'px';
+    }
+
+    function move2() {
+        var maxL = fbox.offsetWidth - box1[2].offsetWidth;
+        var maxT = fbox.offsetHeight - box1[2].offsetHeight;
+        var offL = box1[2].offsetLeft;
+        var offT = box1[2].offsetTop;
+        if (offL >= maxL || offL <= 0) {
+            lspeed2 *= -1;
+            box1[2].style.background = randomColor();
+        }
+        if (offT >= maxT || offT <= 0) {
+            tspeed2 *= -1;
+            box1[2].style.background = randomColor();
+        }
+        box1[2].style.top = offT + tspeed2 + 'px';
+        box1[2].style.left = offL + lspeed2 + 'px';
+    }
+
+    function randomColor() { //颜色随机数
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function funran(max, min) { // 随机数
+        var random = Math.round(Math.random() * (max - min) + min);
+        return random;
+    }
+
+    function getarr() { //去重
+        var arr = [] //文本的数组
+        while (arr.length < 5) {
+            var num = funran(300, 50);
+            if (arr.indexOf(num) == -1) {
+                arr.push(num);
+            }
+        }
+        return arr;
+    }
+</script>
+
+</html>

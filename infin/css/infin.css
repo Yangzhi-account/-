@@ -1,0 +1,184 @@
+                    .head {
+                        background-color: rgba(60, 60, 60, 0.5);
+                        width: 100%;
+                        height: 120px;
+                        position: relative;
+                        position: fixed;
+                        z-index: 5;
+                        margin-top: 0px;
+                    }
+                    
+                    @media screen and (max-width:600px) {
+                        .head {
+                            background: red;
+                        }
+                        .main-1 img {
+                            width: 372px;
+                        }
+                        .main-1 {
+                            width: 30%;
+                        }
+                    }
+                    
+                    @media screen and (min-width:600px) and (max-width:900px) {
+                        .main-1 img {
+                            width: 372px;
+                        }
+                        .main-1 {
+                            width: 40%;
+                        }
+                    }
+                    
+                    @media screen and (min-width:900px) {
+                        .main-1 img {
+                            width: 372px;
+                        }
+                        .main-1 {
+                            width: 80%;
+                        }
+                    }
+                    /* @media screen and (min-width:700px) {
+            .body-picture img {
+                width: 20px;
+            }
+        } */
+                    
+                    */ .head-1 {
+                        margin-left: 40%;
+                    }
+                    
+                    .head-2 {
+                        position: absolute;
+                        top: 80%;
+                        left: 35%;
+                    }
+                    
+                    .head span {
+                        margin-left: 40px;
+                    }
+                    
+                    .head span:hover {
+                        color: white;
+                    }
+                    
+                    .body {
+                        width: 1000px;
+                        margin: 10px auto;
+                        overflow: hidden;
+                        position: relative;
+                    }
+                    
+                    .body-picture {
+                        margin-top: 200px;
+                        width: 4000px;
+                        animation: switch 5s linear infinite;
+                    }
+                    
+                    .daohang-2 {
+                        position: absolute;
+                        top: 60%;
+                        left: 0;
+                    }
+                    
+                    .daohang-1 {
+                        position: absolute;
+                        top: 60%;
+                        right: 0;
+                    }
+                    
+                    .body-picture img {
+                        width: 1000px;
+                        height: 412px;
+                        float: left;
+                    }
+                    
+                    @keyframes switch {
+                        0%,
+                        10% {
+                            margin-left: 0px;
+                        }
+                        30%,
+                        40% {
+                            margin-left: -1000px;
+                        }
+                        60%,
+                        70% {
+                            margin-left: -2000px;
+                        }
+                        90%,
+                        100% {
+                            margin-left: -3000px;
+                        }
+                    }
+                    
+                    .shitu {
+                        width: 1200px;
+                        margin: 10px auto;
+                    }
+                    
+                    .shitu img {
+                        margin: 5px 10px;
+                    }
+                    
+                    .click {
+                        width: 100%;
+                        height: 100%;
+                        background-color: red;
+                        display: none;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        text-align: center;
+                    }
+                    /* .main-1 img {
+width: 372px;
+height: 206px;
+} */
+                    
+                    .main-1 {
+                        width: 372px;
+                        height: 206px;
+                        position: relative;
+                        display: inline-block;
+                    }
+                    
+                    .main-1:hover .click {
+                        display: block;
+                    }
+                    
+                    .main {
+                        width: 80%;
+                        margin: 0 auto;
+                        margin-left: 7%
+                    }
+                    
+                    .footer {
+                        background-color: rgb(224, 224, 224);
+                        margin-top: 60px;
+                        width: 100%;
+                    }
+                    
+                    .footer1 {
+                        width: 50%;
+                        display: inline-block;
+                        vertical-align: top;
+                        padding-right: 10px;
+                    }
+                    
+                    .footer1 img {
+                        float: right;
+                        width: 60px;
+                    }
+                    
+                    .footer2 {
+                        border-left: 2px solid rgb(188, 188, 188);
+                        display: inline-block;
+                        font-size: 0;
+                        padding-left: 10px;
+                    }
+                    
+                    .footer2 p {
+                        margin: 2px;
+                        font-size: 0.8rem;
+                        padding-bottom: 3px;
+                    }

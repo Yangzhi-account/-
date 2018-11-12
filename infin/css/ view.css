@@ -1,0 +1,26 @@
+/* 
+@media screen and (max-width:320px) {
+    .nav img {
+        display: block;
+    }
+    .nav a {
+        display: none;
+    }
+    .center {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+@media screen and (max-width:940px) {
+    .center {
+        flex-direction: column;
+        padding-left: 98px;
+        padding-right: 98px;
+    }
+    .left {
+        width: 100%;
+    }
+    .right {
+        width: 100%;
+    }
+} */

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var body = document.getElementsByTagName('body')[0];
+    body.style.margin = '0';
+    body.style.padding = '0';
+
+
+    var header_ = document.createElement('div');
+    header_.style.backgroundColor = 'rgba(0,0,0,0.7)';
+    header_.style.width = '100%';
+    header_.style.height = '130px';
+    header_.style.position = 'fixed';
+    // header_.style.position = 'relative'
+    header_.style.top = '0'
+    header_.style.position
+    header_.style.textAlign = 'center';
+    header_.style.zIndex = '1';
+
+
+    // 头部logo
+    var div_img_1 = document.createElement('div')
+    var img_11 = document.createElement('img');
+    // var img1_1=[images/title.png]
+    // img_1.style.textAlign='center';
+    // img_1.srcset="images/title.png";
+    img_11.setAttribute("src", "http://www.infinistudio.cn/Public/home/images/title2.png");
+    img_11.style.width = '150px'
+    img_11.style.height = '60px'
+    img_11.style.position = 'absolute';
+    img_11.style.top = '0'
+    img_11.style.left = '44%'
+        // img_1.style.display='inline'
+        // a_.style.color="red"
+        // a_('red', "100px")
+        //  head_a.innerHTML=('首页')
+        //  head_a.style.color=('red')
+
+
+    //  顶端向导
+    var arr_ = [];
+    for (i = 0; i < 4; i++) {
+        var head_a = document.createElement('a');
+        head_a.style.color = 'white';
+        head_a.style.width = '100px';
+        head_a.style.display = 'inline-block';
+        head_a.style.marginTop = '86px';
+        head_a.style.textDecoration = 'none'
+        head_a.href = '#'
+            // head_a.innerHTML='321';
+        arr_.push(head_a);
+        header_.appendChild(head_a);
+    }
+    arr_[0].innerHTML = 'HOME';
+    arr_[1].innerHTML = 'WORk';
+    arr_[2].innerHTML = 'CONTER';
+    arr_[3].innerHTML = 'JUIN US'
+        // 头部结束
+    body.appendChild(header_);
+    header_.appendChild(img_11);
+
+    // 轮播图
+    var div_lunbo = document.createElement('div')
+    div_lunbo.style.position = 'relative';
+    div_lunbo.style.overflow = 'hidden'
+    div_lunbo.style.width = '80%';
+    div_lunbo.style.height = '630px'
+    div_lunbo.style.margin = '150px auto';
+    var message_ = document.createElement('div')
+    message_.style.position = 'absolute';
+    message_.style.bottom = '20px';
+    message_.style.left = '0';
+    message_.style.zIndex = '1';
+    message_.style.paddingLeft = '500px';
+    message_.innerHTML = '今日头条品牌概念动画 ';
+    message_.style.color = 'white';
+    div_lunbo.appendChild(message_);
+
+
+    // div_lunbo.style.border='5px solid black '
+    var ul_ = document.createElement('ul')
+    ul_.style.width = '500%'
+    ul_.style.position = 'absolute'
+    ul_.style.left = '0'
+    ul_.style.top = '0'
+    var a = 0; //定义一个变量用于设置left值
+    var timer = null; //定义一个计时器
+    var arr_lunbo = []
+    for (i = 0; i < 5; i++) {
+        var img_2 = document.createElement('img');
+        // img_2.setAttribute("src", "http://www.infinistudio.cn/Public/Upload/2017-03-08/58bf8b14867c3.jpg");
+        img_2.style.width = '20%';
+        img_2.style.height = '600px'
+        img_2.style.cssFloat = 'left'
+            // img_2.style.marginTop = '50px';
+        img_2.style.erticalAlign = 'top'
+        arr_lunbo.push(img_2);
+        ul_.appendChild(img_2)
+    }
+    arr_lunbo[0].src = 'http://www.infinistudio.cn/Public/Upload/2017-03-08/58bfbd40b1d73.jpg';
+    arr_lunbo[1].src = 'http://www.infinistudio.cn/Public/Upload/2017-03-08/58bf8b14867c3.jpg';
+    arr_lunbo[2].src = 'http://www.infinistudio.cn/Public/Upload/2017-03-08/58bf8b9d13662.jpg'
+    arr_lunbo[3].src = 'http://www.infinistudio.cn/Public/Upload/2017-03-08/58bfbd40b1d73.jpg'
+    arr_lunbo[4].src = 'http://www.infinistudio.cn/Public/Upload/2017-03-08/58bf8b14867c3.jpg';
+
+    timer = setInterval(autoPlay, 60); // 定义计时器每25毫秒执行一次
+    function autoPlay() { //执行每次执行函数，left值减1
+        a--;
+        a <= -200 ? a = 0 : a;
+        ul_.style.left = a + "%";
+    }
+    div_lunbo.onmouseover = function() { //移出时清除计时器
+        clearInterval(timer);
+    }
+    div_lunbo.onmouseout = function() { //移入时开始计时器
+            timer = setInterval(autoPlay, 60);
+        }
+        // 轮播图结束
+
+    body.appendChild(div_lunbo);
+    div_lunbo.appendChild(ul_);
+
+    var content_div_a = document.createElement('div')
+    content_div_a.style.textAlign = 'center';
+    content_div_a.style.margin = '0 auto';
+    content_div_a.style.marginTop = '-100px';
+
+    var arr_1 = [];
+    for (i = 0; i < 4; i++) {
+        var content_a = document.createElement('a');
+        content_a.style.display = 'inline-block';
+        content_a.style.borderRadius = '50%';
+        content_a.style.backgroundColor = 'rgb(0,0,0,0.7)'
+        content_a.style.width = '10px';
+        content_a.style.height = '10px'
+        content_a.style.textDecoration = 'none';
+        content_a.style.border = '1px solid black'
+        content_a.style.padding = '1px'
+        content_a.href = '#'
+        content_a.style.margin = '0 5px'
+        content_div_a.appendChild(content_a)
+        arr_1.push(content_a);
+        content_a.onmouseover = function() {
+            this.style.background = 'red';
+            clearInterval(timer);
+
+        }
+        content_a.onmouseout = function() {
+            this.style.background = 'black';
+            timer = setInterval(autoPlay, 60);
+        }
+    }
+    arr_1[0].onclick = function() {
+        ul_.style.left = '0px';
+    }
+    arr_1[1].onclick = function() {
+        ul_.style.left = '-100%';
+    }
+    arr_1[2].onclick = function() {
+        ul_.style.left = '-210%';
+    }
+    arr_1[3].onclick = function() {
+        ul_.style.left = '-300%';
+    }
+
+    body.appendChild(content_div_a);
+    var swiper = document.createElement('div'); //文字
+    body.appendChild(swiper);
+    swiper.style.textIndent = '50px';
+    swiper.style.borderBottom = '1px solid rgb(102,102,102)'
+    swiper.style.borderTop = '1px solid rgb(102,102,102)';
+    swiper.style.width = '80%';
+    swiper.style.margin = '0 auto ';
+    // swiper.style.marginTop = '-100px';
+    swiper.style.fontSize = '1.2rem';
+    swiper.style.color = 'rgb(102,102,102)';
+    swiper.style.padding = '20px 0 '
+    swiper.innerText = 'Infini Studio（ 映纷创意） 是一家以动画和设计为驱动的独立创意机构。 我们运用多样化的创作形式， 为品牌提供丰富多元的跨媒体整合创意营销。';
+
+
+    var logo_ = document.createElement('div');
+    var arrLogo = [];
+    for (var i = 0; i < 11; i++) {
+        var logo_img = document.createElement('img');
+        logo_img.style.width = '103px';
+        // body.appendChild(logo_img);
+        body.appendChild(logo_);
+        logo_.style.width = '80%';
+        logo_.style.margin = '0  auto';
+        logo_.style.marginTop = '15px';
+        logo_.style.marginBottom = '15px';
+        // logo_img.src = 'http://www.infinistudio.cn/Public/home/images/1.jpg';
+        logo_.appendChild(logo_img);
+        arrLogo.push(logo_img);
+    }
+    var arrLogo_ = ['http://www.infinistudio.cn/Public/home/images/12.jpg', 'http://www.infinistudio.cn/Public/home/images/14.jpg', 'http://www.infinistudio.cn/Public/home/images/1.jpg', 'http://www.infinistudio.cn/Public/home/images/4.jpg', 'http://www.infinistudio.cn/Public/home/images/3.jpg', 'http://www.infinistudio.cn/Public/home/images/1.jpg', 'http://www.infinistudio.cn/Public/home/images/5.jpg', 'http://www.infinistudio.cn/Public/home/images/11.jpg', 'http://www.infinistudio.cn/Public/home/images/9.jpg', 'http://www.infinistudio.cn/Public/home/images/6.jpg', 'http://www.infinistudio.cn/Public/home/images/2.jpg'];
+    for (var i = 0; i < 11; i++) {
+        arrLogo[i].src = arrLogo_[i];
+    }
+
+    var content = document.createElement('div'); //定义一个content
+    content.style.width = '100%';
+    content.style.backgroundColor = 'rgb(173, 173, 173)';
+    var arr = []; //数组
+    for (var i = 0; i < 15; i++) {
+        var content_work = document.createElement('div'); //装图片的盒子
+        content_work.style.width = '29%';
+        content_work.style.margin = '2%';
+        content_work.style.display = 'inline-block';
+        content_work.style.background = 'white';
+        content_work.style.color = '#959595';
+        content_work.style.position = 'relative';
+        content_work.style.borderRadius = '10px 10px  10px 10px';
+        content_work.className = 'contentHover';
+        var contentHover_ = document.getElementsByClassName('contentHover')[0];
+        var img_1 = document.createElement('img'); //定义一个img
+        img_1.src = 'http://www.infinistudio.cn/Public/Upload/2018-09-06/5b909ea21abb0.jpg';
+        img_1.style.width = '100%';
+        img_1.style.border = 'none';
+        img_1.style.borderRadius = '10px 10px 0 0 ';
+        var content_p = document.createElement('p'); //定义一个p标签
+        content_p.innerHTML = 'OPPO&nbsp;R17系列';
+        content_p.style.textAlign = 'center';
+        content_p.style.color = '#666666';
+        content_p.style.lineHeight = '35px';
+        content_p.style.display = 'block';
+        content_p.style.margin = '0';
+        content_p.style.marginTop = '-4px';
+        content_p.style.width = '99.5%';
+        content_p.style.border = '1px solid rgb(220,220,220)';
+        content_p.style.borderRadius = '0 0  10px 10px';
+        var content_dis = document.createElement('div'); //隐藏的div
+        content_dis.style.width = '100%';
+        content_dis.style.height = '100%';
+        content_dis.style.backgroundColor = 'rgba(200,200,200,0.5)';
+        content_dis.style.position = 'absolute';
+        content_dis.style.top = '0';
+        content_dis.style.left = '0';
+        content_dis.style.opacity = '0';
+        content_dis.style.textAlign = 'center';
+        content_dis.style.color = 'white';
+        var content_dis_p1 = document.createElement('p'); //隐藏盒子中的p1标签
+        var content_dis_p2 = document.createElement('p'); //隐藏盒子中的p2标签
+        content_dis_p1.innerText = 'OPPO';
+        content_dis_p2.innerText = '戴上他，做一个耀眼的夜行动物';
+        content_dis_p1.style.marginTop = '76px';
+        arr.push(img_1);
+        funpush();
+        funhover();
+    }
+    // var img_1Arr = ['http: //www.infinistudio.cn/Public/Upload/2018-09-06/5b909ea21abb0.jpg'];
+    // for (var i = 0; i < 15; i++) {
+    //     arr[i].src = img_1Arr[i];
+    // }
+    var footer = document.createElement('div'); //页脚  
+    footer.style.width = '100%';
+    footer.style.marginBottom = '100px';
+    footer.style.backgroundColor = '#e0e0e0';
+    var footer_1 = document.createElement('div'); //页脚第一个
+    var footer_2 = document.createElement('div'); //页脚第二个
+    var imgArr = [];
+    for (var i = 0; i < 3; i++) {
+        footer_1.style.width = '48%';
+        footer_1.style.textAlign = 'right';
+        footer_1.style.paddingRight = '10px';
+        footer_1.style.display = 'inline-block';
+        footer_2.style.borderLeft = '1px solid black';
+        footer_2.style.paddingLeft = '10px';
+        footer_2.style.width = '48%';
+        footer_2.style.display = 'inline-block';
+        footer_2.style.lineHeight = '30px';
+        footer_2.style.textAlign = 'left';
+        footer_1.style.verticalAlign = 'top';
+        footer_2.style.verticalAlign = 'top';
+        footer_2.style.position = 'relative';
+        var fcArr = [];
+        var footer_1_img = document.createElement('img');
+        footer_1_img.style.width = '50px';
+        imgArr.push(footer_1_img);
+        body.appendChild(footer); //页脚放在body
+        footer.appendChild(footer_1);
+        footer.appendChild(footer_2);
+        footer_1.appendChild(footer_1_img);
+
+    }
+    imgArr[0].src = 'http://www.infinistudio.cn/Public/home/images/contact1.jpg';
+    imgArr[1].src = 'http://www.infinistudio.cn/Public/home/images/contact2.jpg';
+    imgArr[2].src = 'http://www.infinistudio.cn/Public/home/images/contact3.jpg'
+    for (var j = 0; j < 5; j++) {
+        var foot2_img = document.createElement('img');
+        foot2_img.src = 'http://www.infinistudio.cn/Public/home/images/footer_logo.jpg';
+        foot2_img.style.position = 'absolute';
+        foot2_img.style.top = '0px';
+        foot2_img.style.left = '0px';
+        var foot_content = document.createElement('div');
+        foot_content.style.marginBottom = '10px';
+        foot2_img.style.width = '130px';
+        footer_2.appendChild(foot_content);
+        fcArr.push(foot_content);
+    }
+    footer_2.appendChild(foot2_img);
+    fcArr[0].innerText = 'Infini Studio | 映纷创意';
+    fcArr[0].style.marginTop = '60px';
+    fcArr[1].innerText = '北京市朝阳区常营';
+    fcArr[2].innerText = 'TEL : 010-85394331';
+    fcArr[3].innerText = 'QQ : 7585917';
+    fcArr[4].innerText = 'Email : infinistudio@foxmail.com';
+    fcArr[4].innerText = 'weibo : @InfiniStudio';
+
+
+
+    function funpush() { //方法  第一个封装函数
+        body.appendChild(content);
+        content.appendChild(content_work);
+        content_work.appendChild(img_1);
+        content_work.appendChild(content_p);
+        content_work.appendChild(content_dis);
+        content_dis.appendChild(content_dis_p1);
+        content_dis.appendChild(content_dis_p2);
+    }
+
+
+    function funhover() { //hover效果
+        content_work.onmousemove = function() {
+            this.getElementsByTagName('div')[0].style.opacity = '1'
+        }
+        content_work.onmouseout = function() {
+            this.getElementsByTagName('div')[0].style.opacity = '0';
+        }
+    }
+</script>
+
+</html>
