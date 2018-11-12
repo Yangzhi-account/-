@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .main {
+            display: inline-block;
+            border: 1px solid red;
+            /* width: 400px;
+            height: 400px; */
+        }
+
+        /* .box {
+            background: black;
+        } */
+
+        .re {
+            background: red;
+        }
+
+        .before_ {
+            background: black;
+        }
+
+
+        .after {
+            background:red;
+        }
+
+        .btn {
+         width: 80px;
+            background: red;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main"></div>
+    <div class="btn">下一关</div>
+</body>
+<script>
+    var xunhuancishu=1;//难度
+    var wid = 40; //小盒子的宽度
+    var mar = 1; //边框
+    var colNum = 10; //列数
+    var rolNum = 10; //行数
+    var arr = [];
+    var btn = document.getElementsByClassName('btn')[0];
+    var main = document.getElementsByClassName('main')[0];
+    main.style.width = colNum * (wid + 2 * mar) + 'px'; //父盒子的宽度
+    function creatBg() {
+        var box = document.createElement('div');
+        box.className = 'before_';
+        // box.style.border = "1px solid red";
+        // box.style.background = 'black';
+        box.style.width = wid + 'px';
+        box.style.height = wid + 'px';
+        box.style.display = 'inline-block'
+        box.style.margin = mar + 'px';
+        box.style.verticalAlign = 'top';
+        box.flag = false;
+        return box;
+    }
+
+
+
+    function Allbox() {
+        for (var i = 0; i < colNum * rolNum; i++) {
+            var box = creatBg();
+            arr.push(box);
+            box.index = i;
+            main.appendChild(box);
+            box.onclick = ff;
+
+        }
+    }
+    Allbox();
+
+    function ff() { //点击函数
+
+        a(this.index);
+
+    }
+
+    function jihuo(j) {
+        if (j.flag == false) {
+            j.className = 'after';
+
+            j.flag = true;
+        } else {
+            j.className = 'before_';
+            j.flag = false;
+        }
+    }
+
+    function a(index) {
+        var arr_1 = [];
+        arr_1.push(arr[index]);
+        //第一行
+        if (index < colNum) {
+
+        } else {
+
+            arr_1.push(arr[index - colNum])
+        }
+        //最后一行
+        if (index >= colNum * (rolNum - 1)) {
+
+        } else {
+
+            arr_1.push(arr[index + colNum])
+        }
+        //最左边
+        if (index % colNum == 0) {
+
+        } else {
+
+            arr_1.push(arr[index - 1]);
+        }
+        //最右边
+        if ((index + 1) % colNum == 0) {
+
+        } else {
+
+            arr_1.push(arr[index + 1])
+        }
+        // jihuo(index);
+        for (var i = 0; i < arr_1.length; i++) {
+            jihuo(arr_1[i]);
+        }
+    }
+
+    function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function ss() {
+        for (var i = 0; i < xunhuancishu; i++) {
+            var num = getRandom(0, colNum * rolNum - 1);
+            a(num);
+        }
+    }
+
+    btn.onclick = function () {
+        // window.location.reload() ;
+        xunhuancishu++;
+               ss();
+    }
+</script>
+
+</html>
