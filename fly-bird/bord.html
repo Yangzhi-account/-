@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=    "width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        .container {
+            background-image: url('img/bg.jpg');
+            width: 343px;
+            height: 480px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 积分的 */
+        .container .score {
+            margin-top: 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .startPage .birdAni {
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            position: relative;
+            top: 40px;
+            animation: birdmoveAni 1.5s linear infinite;
+
+        }
+
+        .startPage .headImg {
+            vertical-align: middle
+        }
+
+        .startPage .bird {
+            position: absolute;
+            right: 0;
+            top: 25px;
+            width: 40px;
+            height: 26px;
+            background-image: url('img/bird0.png');
+            display: inline-block;
+            vertical-align: middle;
+            animation: birdFly 1.5s linear infinite;
+        }
+
+        .startPage .bitGroup {
+            margin-top: 80px;
+            z-index: 100;
+
+        }
+
+        .startBit {
+            z-index: 100;
+
+        }
+
+        @keyframes birdmoveAni {
+            0% {
+                top: 40px
+            }
+
+            50% {
+                top: 80px
+            }
+
+            100% {
+                top: 40px
+            }
+        }
+
+        @keyframes birdFly {
+            from {
+                background-image: url('img/bird0.png')
+            }
+
+            to {
+                background-image: url('img/bird1.png')
+            }
+        }
+
+        .grass {
+            position: absolute;
+            left: 0;
+            top: 425px;
+            width: 100%;
+            height: 14px;
+            /* background-color: red; */
+            overflow: hidden;
+        }
+
+        .grassWarp {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background-image: url('img/banner.jpg');
+            animation: scrollAni 5s linear infinite
+        }
+
+        @keyframes scrollAni {
+            from {
+                left: 0
+            }
+
+            to {
+                left: -100%;
+            }
+        }
+
+        .birdRole {
+            position: absolute;
+            left: 50px;
+            top: 550px;
+            display: none
+        }
+
+
+        .pipeItem {
+            width: 62px;
+            height: 425px;
+            position: absolute;
+            left: 343px;
+            top: 0px;
+       
+        }
+
+        .pipeItem .pipeUp {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            background-image: url('img/up_mod.png');
+        }
+            .pipeItem .pipeUp img {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+       .pipeItem .pipeDown {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-image: url('img/down_mod.png')
+        }
+
+      .pipeItem .pipeDown img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        
+        }
+        .mask{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            z-index: 100;
+            font-size: 2rem;
+            color: white;
+            font-weight: bolder;
+            background: rgba(0,0,0,0.6);
+            display: none;
+        }
+        .mask .mask_1{
+            margin-top: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="mask">
+            <div class="mask_1">Game Over</div>
+        </div>
+        <!-- 积分 -->
+        <div class="score">
+            <img src="img/0.jpg" alt="">
+        </div>
+        <!-- 开始界面 -->
+        <div class="startPage">
+            <div class="birdAni">
+                <img class="headImg" src="img/head.jpg" alt="">
+                <div class="bird"></div>
+            </div>
+            <div class="bitGroup">
+                <img class="startBit" src="img/start.jpg" alt="">
+            </div>
+        </div>
+        <div class="birdRole">
+            <img src="img/down_bird0.png" alt="">
+        </div>
+         <!-- <div class="pipeGroup"> -->
+            <!-- <div class="pipeItem"> --> 
+                <!-- <div class="pipeUp">
+                    <img src="img/up_pipe.png" alt="">
+                </div>
+                <div class="pipeDown">
+                    <img src="img/down_pipe.png" alt="">
+                </div> -->
+             <!-- </div> -->
+        <!-- </div>  -->
+        <div class="grass">
+            <div class="grassWarp"></div>
+        </div>
+    </div>
+</body>
+<script>
+    //开始页面
+    var startPage = document.getElementsByClassName('startPage')[0];
+    var startBtn = document.getElementsByClassName('bitGroup')[0];
+    var birdRole = document.getElementsByClassName('birdRole')[0];
+    // var pipeGroup = document.getElementsByClassName('pipeGroup')[0];
+    var cont=document.getElementsByClassName('container')[0];
+    var score=document.getElementsByClassName('score')[0];
+    var mask=document.getElementsByClassName('mask')[0];
+    var downTimer;
+    var upTimer;
+    var index = 0;
+    startBtn.addEventListener('click', gameStart);
+    function gameStart(e) {
+        var event=window.event||e;
+        event.cancelBubble=true;
+     
+    
+        startPage.style.display = 'none';
+        // pipeGroup.style.display = 'block';
+        birdRole.style.display = 'block';
+     
+        setInterval(function() {
+            var pipeUp=document.getElementsByClassName('pipeUp')[0]
+            var ppp=document.getElementsByClassName('pipeItem')[0]
+            var xxx = createPipeItem();
+            cont.appendChild(xxx);
+        }, 2000)
+    
+}
+   
+    var html='';
+    function  createPipeItem(){//生成柱子
+    // var randomup=getRandom(60,423-160);
+        var pipeItem = document.createElement('div');
+        pipeItem.sorceflag=false;
+        pipeItem.className = 'pipeItem';
+        pipeItem.style.display= 'inline-block';
+        var thisrandom = getRandom(60,100);
+        var mind=150;
+        var thisdown=423-thisrandom-mind;
+
+        html = '<div class="pipeUp"style="height:'+thisrandom+'px" ><img src="img/up_pipe.png"alt=""></div><div class="pipeDown" style="height:'+thisdown+'px"><img src="img/down_pipe.png"alt=""></div>'
+        pipeItem.innerHTML=html;
+        pipeItem.style.top='0';
+        var xx=0;
+        pipeItem.timer=setInterval(function(){
+            // xx-=1;
+            var xx=pipeItem.offsetLeft;
+            xx-=1;
+           if(pipeItem.offsetLeft<-60){
+            cont.removeChild(pipeItem);
+           }
+            pipeItem.style.left= xx + 'px';
+//碰撞检测
+            var pipe = pipeItem.children;//取值
+            bird = {
+                l: birdRole.offsetLeft,
+                r: birdRole.offsetLeft + birdRole.offsetWidth,
+                t: birdRole.offsetTop,
+                b: birdRole.offsetTop + birdRole.offsetHeight
+            }
+          var result=false;
+      
+            for (var i = 0; i < pipe.length; i++) {
+                ojb = {
+                    l: pipeItem.offsetLeft,
+                    r: pipeItem.offsetLeft + pipe[i].offsetWidth,
+                    t: pipe[i].offsetTop,
+                    b: pipe[i].offsetTop + pipe[i].offsetHeight
+                } 
+               var  result = crash(bird, ojb);
+                if (result) {
+                    down()
+                 
+                    clearIntervalAll();
+                    mask.style.display='block'
+                    document.onmousedown=''
+                 
+                    break;
+                
+                }
+               
+            }
+           
+            if (bird.l > pipeItem.offsetLeft + pipeItem.offsetWidth) {//积分
+                if (pipeItem.sorceflag == false)
+                    index++;
+                    sorcePip()
+                   pipeItem.sorceflag = true;
+            }
+          
+        }, 14)
+
+        return  pipeItem;
+    }
+ 
+    function  getRandom(min,max){
+        return Math.random()*(max-min)+min;
+    }
+   
+
+var flag=false;
+    document.onmousedown=function(e){//点击
+        clearInterval(downTimer);
+        speed = 8;
+            // 清除向下动画的定时器
+          
+            if (flag == false) {
+                upTimer = setInterval(function() {
+                    if (speed <= 0) {
+                        clearInterval(upTimer);
+                        down();
+                     
+                        flag=false;
+                    } else {
+                        var offt = birdRole.offsetTop;
+                        birdRole.style.top = offt - speed + 'px';
+                        speed--;
+                    }
+                }, 50);
+                flag = true;
+            }
+    }
+
+    function down(){//让鸟下降
+        downTimer=setInterval(function(){
+            var speed=0;
+        var offt=birdRole.offsetTop;
+        speed++;
+        offt+=speed;
+        if(offt>397){
+            clearInterval(downTimer);
+            mask.style.display='block'
+             document.onmousedown=''
+             clearIntervalAll();
+        }
+     
+        birdRole.style.top=offt+'px';
+     
+    },5)    
+    }
+  
+
+    function crash(obj1, obj2) {
+            if (obj1.l <= obj2.r && obj1.r >= obj2.l && obj1.t <= obj2.b && obj1.b >= obj2.t) {
+                return true;
+            }
+            return false;
+        }
+
+    function clearIntervalAll() {
+        var num = setInterval(function () {
+           
+        }, 2)
+        for (var i = 0; i < num; i++) {
+                clearInterval(i);
+            }
+    }
+    function sorcePip(){
+        var scoreArr = index.toString().split('');
+        var html = '';
+            for (var i in scoreArr) {
+                html += '<img src="img/' + scoreArr[i] + '.jpg">'
+            }
+            score.innerHTML = html;
+    }
+    </script>
+
+</html>
